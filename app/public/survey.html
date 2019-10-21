@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Food Finder</title>
+
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  
+  <!-- Chosen -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+
+</head>
+
+<body>
+  <div class="container">
+      <div class="jumbotron">
+        <h2>Survey Questions</h2>
+        <hr>
+        <h3 style="text-align:center">Answer the following questions to find out which food you should order tonight!</h3>
+        <br>
+      </div>
+
+  <div class=q1>
+
+    <h3><strong>Question 1</strong></h3>
+    <h4>Do you want hot food or cold food?</h4>     
+    <select class="chosen-select" id="q1">
+      <option value=""></option>
+      <option value="1">Hot</option>
+      <option value="2">Cold</option>
+      <option value="3">Indifferent</option>
+    </select>
+  </div>
+
+    <br>
+    <br>
+
+    <div class=q2>
+    <h3><strong>Question 2</strong></h3>
+    <h4>Savory or Spicy?</h4>
+    <select class="chosen-select" id="q2">
+      <option value=""></option>
+      <option value="1">Savory</option>
+      <option value="2">Spicy</option>
+      <option value="3">Indifferent</option>
+    </select>
+  </div>
+
+    <br>
+    <br>
+
+    <div class=q3>
+    <h3><strong>Question 3</strong></h3>
+    <h4>Do you want meat, fish, or cheesy food?</h4>
+    <select class="chosen-select" id="q3">
+      <option value=""></option>
+      <option value="1">Meat</option>
+      <option value="2">Fish</option>
+      <option value="3">Cheesy/Vegetarian Options</option>
+    </select>
+</div>
+    <br>
+    <br>
+
+    <div class=q4>
+    <h3><strong>Question 4</strong></h3>
+    <h4>How much are you looking to spend?</h4>
+    <select class="chosen-select" id="q4">
+      <option value=""></option>
+      <option value="1">$</option>
+      <option value="2">$$</option>
+      <option value="3">$$$</option>
+    </select>
+    </div>
+
+    <br>
+    <br>
+
+    <div class=q5>
+    <h3><strong>Question 5</strong></h3>
+    <h4>Choose a continent!</h4>
+    <select class="chosen-select" id="q5">
+      <option value=""></option>
+      <option value="1">Asia</option>
+      <option value="2">Europe</option>
+      <option value="3">America</option>
+    </select>
+    </div>
+    <br>
+    <br>
+
+    <div class=q6>
+    <h3><strong>Question 6</strong></h3>
+    <h4>More carbs or more veggies?</h4>
+    <select class="chosen-select" id="q6">
+      <option value=""></option>
+      <option value="1">Carbs!</option>
+      <option value="2">VEG</option>
+      <option value="3">Indifferent</option>
+    </select>
+    </div>
+    <br>
+    <br>
+
+    <div class=q7>
+    <h3><strong>Question 7</strong></h3>
+    <h4>Are we watching our weight?</h4>
+    <select class="chosen-select" id="q7">
+      <option value=""></option>
+      <option value="1">Yes</option>
+      <option value="2">No</option>
+      <option value="3">Something in between healthy and unhealthy please?</option>
+    </select>
+    </div>
+
+    <br>
+    <br>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary btn-md btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
+     Help me I'm Hungry</button>
+
+    <hr>
+    <footer class="footer">
+      <div class="container">
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal -->
+  <div id="results-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title"><strong>Best Food</strong></h2>
+        </div>
+        <div class="modal-body">
+          <h2 id="food-name"></h2>
+          <img style="height:200px; width:200px;" id="food-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Chosen CSS
+    var config = {
+      ".chosen-select": {},
+      ".chosen-select-deselect": {
+        allow_single_deselect: true
+      },
+      ".chosen-select-no-single": {
+        disable_search_threshold: 10
+      },
+      ".chosen-select-no-results": {
+        no_results_text: "Oops, nothing found!"
+      },
+      ".chosen-select-width": {
+        width: "95%"
+      }
+    };
+
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+
+    // Capture the form inputs
+    $("#submit").on("click", function(event) {
+      event.preventDefault();
+
+      // Form validation
+      function validateForm() {
+        var isValid = true;
+        $(".form-control").each(function() {
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+
+        $(".chosen-select").each(function() {
+
+          if ($(this).val() === "") {
+            isValid = false;
+          }
+        });
+        return isValid;
+      }
+
+      // If all required fields are filled
+      if (validateForm()) {
+        // Create an object for the user"s data
+        var userData = {
+          scores: [
+            $("#q1").val(),
+            $("#q2").val(),
+            $("#q3").val(),
+            $("#q4").val(),
+            $("#q5").val(),
+            $("#q6").val(),
+            $("#q7").val(),
+          ]
+        };
+
+        // AJAX post the data to the foods API.
+        $.post("/api/food", userData, function(data) {
+
+          // Grab the result from the AJAX post so that the best foods name and photo are displayed.
+          $("#food-name").text(data.name);
+          $("#food-img").attr("src", data.photo);
+
+          // Show the modal with the best food
+          $("#results-modal").modal("toggle");
+
+        });
+
+        userData=[];
+      } else {
+        alert("Please fill out all fields before submitting!");
+      }
+    });
+  </script>
+
+</body>
+
+</html>
+
+<style>
+  .chosen-container{
+    min-width: 200px;
+    max-width:200px;
+  }
+
+  body{
+    background: rgba(62, 226, 255, 0.25); 
+    background-image:url("http://www.transparenttextures.com/patterns/food.png");
+    font-family: 'Allerta Stencil';
+  }
+
+  h2 {
+    font-size:48px;
+    font-weight: 900;
+    text-align:center;
+
+  }
+  .food{
+    height:150px;
+    width:200px;
+    float:right;
+  }
+  .jumbotron{
+    background-color:rgba(0, 217, 255, 0.25);
+  }
+
+  hr{
+    color:darkblue;
+  }
+</style>
