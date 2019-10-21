@@ -76,12 +76,17 @@ module.exports = function(app) {
       }
     }
 
-    // Finally save the user's data to the database (this has to happen AFTER the check. otherwise,
-    // the database will always return that the user is the user's best food).
-    foods.push(userData);
-
     // Return a JSON with the user's bestFood. This will be used by the HTML in the next page
     res.json(bestFood);
     console.log(bestFood);
+    
+    //reset
+    bestFood = {
+      name: "",
+      photo: "",
+      foodDifference: Infinity
+    };
+    var userData = "";
+    var userScores = "";
   });
 };
